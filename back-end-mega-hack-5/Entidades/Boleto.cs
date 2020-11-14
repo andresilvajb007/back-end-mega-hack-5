@@ -22,6 +22,8 @@ namespace back_end_mega_hack_5.Entidades
 
         public DateTime? DataPagamento { get; set; }
 
+        public EnumStatusBoleto EnumStatusBoleto { get; set; }
+
         public Boleto()
         {
         }
