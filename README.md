@@ -14,6 +14,7 @@ Finalizado e entregue dia 12/10/2020
 - [x] API de Cadastro de Cliente
 - [x] API de Cadastro de Lembrete
 - [x] API de Cadastro de Tipo de Boleto
+- [x] API de Cadastro de Boleto
 
 
 ## 🚧 Backlog futuro 
