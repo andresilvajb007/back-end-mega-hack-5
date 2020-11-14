@@ -8,7 +8,7 @@ O objetivo do projeto é  proporciar API's para pagamento de Boletos de forma fa
 
 ## 🚀 Status do projeto
 
-Finalizado e entregue dia 12/10/2020
+Projeto em andamento...
 
 ## :pushpin: Features desenvolvidas
 - [x] API de Cadastro de Cliente
