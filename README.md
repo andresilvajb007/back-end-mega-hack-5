@@ -4,18 +4,20 @@
 
 ## 🔗 Objetivo
 
-O objetivo do projeto é  
+O objetivo do projeto é  proporciar API's para pagamento de Boletos de forma facil e rápida.
 
 ## 🚀 Status do projeto
 
 Finalizado e entregue dia 12/10/2020
 
 ## :pushpin: Features desenvolvidas
-- [x] ...
+- [x] API de Cadastro de Cliente
+- [x] API de Cadastro de Lembrete
+- [x] API de Cadastro de Tipo de Boleto
 
 
 ## 🚧 Backlog futuro 
-- [ ] ...
+- [ ] API de Pagamento de Boleto
 
 
 ## :computer: Demonstração da aplicação
@@ -30,7 +32,6 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - [Entity FrameWork Core](https://docs.microsoft.com/pt-br/ef/core/get-started/?tabs=netcore-cli)
 - [Swagger](https://docs.microsoft.com/pt-br/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1&tabs=visual-studio)
 - [PostGreSQL](https://www.postgresql.org)
-- [Auto Mapper](https://automapper.org)
 
 ## :point_down: Executando o projeto
 
