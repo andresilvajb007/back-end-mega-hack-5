@@ -9,6 +9,7 @@ namespace back_end_mega_hack_5
         public Context(DbContextOptions dbContextOptions)
             :base(dbContextOptions)
         {
+            this.ChangeTracker.AutoDetectChangesEnabled = false;
         }
 
 

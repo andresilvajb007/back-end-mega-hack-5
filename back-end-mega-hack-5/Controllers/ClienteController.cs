@@ -11,12 +11,12 @@ namespace back_end_mega_hack_5.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LembreteController : ControllerBase
+    public class ClienteController : ControllerBase
     {
 
         private readonly Context _context;
 
-        public LembreteController(Context context)
+        public ClienteController(Context context)
         {
             _context = context;
         }
@@ -25,58 +25,55 @@ namespace back_end_mega_hack_5.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var lista = await _context.Lembrete.ToListAsync();
+            var lista = await _context.Cliente.Include(x=>x.ContaCorrente).ToListAsync();
 
             if(lista.Count == 0)
             {
                 return NotFound();
             }
-
-            return Ok(lista);
+            
+            return Ok(lista.Select(x => new { x.Id, x.Nome, x.CPF, x.ContaCorrente.Saldo }));
         }
 
         // GET: api/TipoBoleto/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Find(int id)
         {
-            var lembrete = await _context.Lembrete.FindAsync(id);
+            var cliente = await _context.Cliente.Include(x => x.ContaCorrente).Where(x => x.Id == id).FirstOrDefaultAsync();
 
-            if (lembrete == null)
+            if (cliente == null)
             {
                 return NotFound();
             }
 
-            return Ok(lembrete);
+            return Ok(new { cliente.Id, cliente.Nome, cliente.CPF, cliente.ContaCorrente.Saldo});
         }
 
         // POST: api/TipoBoleto
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Lembrete lembrete)
+        public async Task<IActionResult> Post([FromBody] Cliente cliente)
         {            
-            await _context.Lembrete.AddAsync(lembrete);
+            await _context.Cliente.AddAsync(cliente);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("Get",new { id = lembrete.Id });
+            return CreatedAtAction("Get",new { id = cliente.Id });
         }
 
         // PUT: api/TipoBoleto/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, Lembrete lembrete)
+        public async Task<IActionResult> Put(int id, Cliente cliente)
         {
 
-            var obj = await _context.Lembrete.FindAsync(id);
+            var obj = await _context.Cliente.FindAsync(id);
 
             if (obj == null)
             {
                 return NotFound();
             }
 
-
-            obj.Descricao = lembrete.Descricao;
-            obj.ValorBoleto = lembrete.ValorBoleto;
-            obj.DataAviso = lembrete.DataAviso;
-            obj.DataDoPagamento = lembrete.DataDoPagamento;
-            
+            obj.CPF = cliente.CPF;
+            obj.Nome = cliente.Nome;
+                
             _context.Entry(obj).State = EntityState.Modified;
             await _context.SaveChangesAsync();
     
@@ -88,14 +85,14 @@ namespace back_end_mega_hack_5.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var lembrete = await _context.Lembrete.FindAsync(id);
+            var cliente = await _context.Cliente.FindAsync(id);
 
-            if (lembrete == null)
+            if (cliente == null)
             {
                 return NotFound();
             }
 
-            _context.Lembrete.Remove(lembrete);
+            _context.Cliente.Remove(cliente);
             await _context.SaveChangesAsync();
 
             return Ok();
