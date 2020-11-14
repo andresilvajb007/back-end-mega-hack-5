@@ -1,5 +1,5 @@
 <h3 align="center">
-  Backend(API's) do PLIM! 👽
+  Backend(API's)! 👽
 </h3>
 
 ## 🔗 Objetivo
