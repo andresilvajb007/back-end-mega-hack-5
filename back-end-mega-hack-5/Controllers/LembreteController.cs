@@ -11,12 +11,12 @@ namespace back_end_mega_hack_5.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TipoBoletoController : ControllerBase
+    public class LembreteController : ControllerBase
     {
 
         private readonly Context _context;
 
-        public TipoBoletoController(Context context)
+        public LembreteController(Context context)
         {
             _context = context;
         }
@@ -25,7 +25,7 @@ namespace back_end_mega_hack_5.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var lista = await _context.TipoBoleto.ToListAsync();
+            var lista = await _context.Lembrete.ToListAsync();
 
             if(lista.Count == 0)
             {
@@ -39,42 +39,41 @@ namespace back_end_mega_hack_5.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Find(int id)
         {
-            var tipoBoleto = await _context.TipoBoleto.FindAsync(id);
+            var lembrete = await _context.Lembrete.FindAsync(id);
 
-            if (tipoBoleto == null)
+            if (lembrete == null)
             {
                 return NotFound();
             }
 
-            return Ok(tipoBoleto);
+            return Ok(lembrete);
         }
 
         // POST: api/TipoBoleto
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] string descricao)
-        {
-            var tipoBoleto = new TipoBoleto { Descricao = descricao };
-            await _context.TipoBoleto.AddAsync(tipoBoleto);
+        public async Task<IActionResult> Post([FromBody] Lembrete lembrete)
+        {            
+            await _context.Lembrete.AddAsync(lembrete);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("Get", new { id = tipoBoleto.Id});
+            return CreatedAtAction("Get",new { id = lembrete.Id });
         }
 
         // PUT: api/TipoBoleto/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] string descricao)
+        public async Task<IActionResult> Put(int id, Lembrete lembrete)
         {
 
-            var tipoBoleto = await _context.TipoBoleto.FindAsync(id);
+            var obj = await _context.Lembrete.FindAsync(id);
 
-            if (tipoBoleto == null)
+            if (obj == null)
             {
                 return NotFound();
             }
 
 
-             tipoBoleto = new TipoBoleto { Id = id, Descricao = descricao };
-            _context.Entry(tipoBoleto).State = EntityState.Modified;
+            lembrete.Id = id;
+            _context.Entry(lembrete).State = EntityState.Modified;
             await _context.SaveChangesAsync();
     
 
@@ -85,14 +84,14 @@ namespace back_end_mega_hack_5.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var tipoBoleto = await _context.TipoBoleto.FindAsync(id);
+            var lembrete = await _context.Lembrete.FindAsync(id);
 
-            if (tipoBoleto == null)
+            if (lembrete == null)
             {
                 return NotFound();
             }
 
-            _context.TipoBoleto.Remove(tipoBoleto);
+            _context.Lembrete.Remove(lembrete);
             await _context.SaveChangesAsync();
 
             return Ok();
