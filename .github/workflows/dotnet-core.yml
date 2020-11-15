@@ -23,6 +23,7 @@ jobs:
         DATABASE: ${{ secrets.DATABASE }}
         USERNAME_DB: ${{ secrets.USERNAME_DB }}
         PASSWORD_DB: ${{ secrets.PASSWORD_DB }}
+        TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
         
         APP_NAME: ${{ 'mega-hacka-5' }}
       run: |              
@@ -34,5 +35,6 @@ jobs:
         heroku config:set DATABASE=$DATABASE -a $APP_NAME
         heroku config:set USERNAME_DB=$USERNAME_DB -a $APP_NAME
         heroku config:set PASSWORD_DB=$PASSWORD_DB -a $APP_NAME
+        heroku config:set TOKEN_SECRET=$TOKEN_SECRET -a $APP_NAME
         heroku container:push web -a $APP_NAME
         heroku container:release web -a $APP_NAME
