@@ -89,7 +89,7 @@ namespace back_end_mega_hack_5.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Post([FromForm] string nome, [FromForm] string cpf, [FromForm] string usuario, [FromForm] string senha, IFormFile file)
         {
-
+        
             var memoryStream = new MemoryStream();
             file.CopyTo(memoryStream);
 
@@ -101,8 +101,8 @@ namespace back_end_mega_hack_5.Controllers
                 ContentType = file.ContentType,
                 CannedACL = S3CannedACL.PublicRead
             };
-
-            var s3Client = new Amazon.S3.AmazonS3Client(Amazon.RegionEndpoint.USEast1);
+          
+            var s3Client = new Amazon.S3.AmazonS3Client("AKIAVZ3K7OUCQ4ISB4XC","k9q3Of751WrEXJ/lntatar6CYW6Q4irNvc+AMux1",Amazon.RegionEndpoint.USEast1);            
             var response = await s3Client.PutObjectAsync(request);
 
             var cliente = new Cliente();
@@ -134,7 +134,7 @@ namespace back_end_mega_hack_5.Controllers
                 CannedACL = S3CannedACL.PublicRead
             };
 
-            var s3Client = new Amazon.S3.AmazonS3Client(Amazon.RegionEndpoint.USEast1);
+            var s3Client = new Amazon.S3.AmazonS3Client("AKIAVZ3K7OUCQ4ISB4XC","k9q3Of751WrEXJ/lntatar6CYW6Q4irNvc+AMux1",Amazon.RegionEndpoint.USEast1);            
             var response = await s3Client.PutObjectAsync(request);
 
             var obj = await _context.Cliente.FindAsync(id);
