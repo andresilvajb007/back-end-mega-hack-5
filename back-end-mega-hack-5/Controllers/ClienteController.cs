@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using back_end_mega_hack_5.Entidades;
+using back_end_mega_hack_5.Token;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +13,7 @@ namespace back_end_mega_hack_5.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ClienteController : ControllerBase
     {
 
@@ -19,6 +22,34 @@ namespace back_end_mega_hack_5.Controllers
         public ClienteController(Context context)
         {
             _context = context;
+        }
+
+
+        [HttpPost("Login")]
+        [AllowAnonymous]
+        public async Task<ActionResult<dynamic>> Login([FromBody] string usuario, string senha)
+        {
+            // Recupera o usuário
+            var user = await _context.Cliente
+                .Where(x => x.Usuario == usuario && x.Senha == senha)
+                                                  .FirstOrDefaultAsync();
+
+            // Verifica se o usuário existe
+            if (user == null)
+                return NotFound(new { message = "Usuário ou senha inválidos" });
+
+            // Gera o Token
+            var token = TokenService.GenerateToken(user.Usuario, "Empreendedor");
+
+            // Oculta a senha
+            user.Senha = "";
+
+            // Retorna os dados
+            return new
+            {
+                user = user,
+                token = token
+            };
         }
 
         // GET: api/TipoBoleto
@@ -73,7 +104,9 @@ namespace back_end_mega_hack_5.Controllers
 
             obj.CPF = cliente.CPF;
             obj.Nome = cliente.Nome;
-                
+            obj.Usuario = cliente.Usuario;
+            obj.Senha = cliente.Senha;
+
             _context.Entry(obj).State = EntityState.Modified;
             await _context.SaveChangesAsync();
     
