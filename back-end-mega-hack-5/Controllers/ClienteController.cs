@@ -9,6 +9,7 @@ using Amazon.S3.Transfer;
 using back_end_mega_hack_5.Entidades;
 using back_end_mega_hack_5.Token;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,11 +22,11 @@ namespace back_end_mega_hack_5.Controllers
     public class ClienteController : ControllerBase
     {
 
-        private readonly Context _context;
+        private readonly Context _context;     
 
-        public ClienteController(Context context)
+        public ClienteController(Context context )
         {
-            _context = context;
+            _context = context;            
         }
 
 
@@ -102,7 +103,13 @@ namespace back_end_mega_hack_5.Controllers
                 CannedACL = S3CannedACL.PublicRead
             };
           
-            var s3Client = new Amazon.S3.AmazonS3Client("AKIAVZ3K7OUCQ4ISB4XC","k9q3Of751WrEXJ/lntatar6CYW6Q4irNvc+AMux1",Amazon.RegionEndpoint.USEast1);            
+          
+            
+            
+            var s3Client = new Amazon.S3.AmazonS3Client(Environment.GetEnvironmentVariable("AWS_ACCESS_KEY_ID"),
+                                                        Environment.GetEnvironmentVariable("AWS_SECRET_ACCESS_KEY"),
+                                                        Amazon.RegionEndpoint.USEast1);            
+
             var response = await s3Client.PutObjectAsync(request);
 
             var cliente = new Cliente();
@@ -122,6 +129,7 @@ namespace back_end_mega_hack_5.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromForm] string nome, [FromForm] string cpf, [FromForm] string usuario, [FromForm] string senha, IFormFile file)
         {
+            
             var memoryStream = new MemoryStream();
             file.CopyTo(memoryStream);
 
@@ -134,7 +142,10 @@ namespace back_end_mega_hack_5.Controllers
                 CannedACL = S3CannedACL.PublicRead
             };
 
-            var s3Client = new Amazon.S3.AmazonS3Client("AKIAVZ3K7OUCQ4ISB4XC","k9q3Of751WrEXJ/lntatar6CYW6Q4irNvc+AMux1",Amazon.RegionEndpoint.USEast1);            
+            var s3Client = new Amazon.S3.AmazonS3Client(Environment.GetEnvironmentVariable("AWS_ACCESS_KEY_ID"),
+                                                        Environment.GetEnvironmentVariable("AWS_SECRET_ACCESS_KEY"),
+                                                        Amazon.RegionEndpoint.USEast1);
+                                                                  
             var response = await s3Client.PutObjectAsync(request);
 
             var obj = await _context.Cliente.FindAsync(id);
