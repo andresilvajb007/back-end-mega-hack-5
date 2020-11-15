@@ -35,6 +35,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - [Swagger](https://docs.microsoft.com/pt-br/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1&tabs=visual-studio)
 - [PostGreSQL](https://www.postgresql.org)
 - [Token JWT](https://docs.microsoft.com/pt-br/aspnet/core/security/authorization/introduction?view=aspnetcore-3.1)
+- [S3](https://github.com/aws/aws-sdk-net/)
 
 ## :point_down: Executando o projeto
 
