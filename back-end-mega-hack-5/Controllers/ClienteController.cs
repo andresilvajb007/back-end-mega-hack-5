@@ -128,7 +128,7 @@ namespace back_end_mega_hack_5.Controllers
             var request = new PutObjectRequest
             {
                 BucketName = "mega-hacka",
-                Key = file.Name,
+                Key = file.FileName,
                 InputStream = memoryStream,
                 ContentType = file.ContentType,
                 CannedACL = S3CannedACL.PublicRead
