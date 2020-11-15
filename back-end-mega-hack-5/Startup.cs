@@ -44,8 +44,7 @@ namespace back_end_mega_hack_5
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<Context>(options => options.UseNpgsql("Host=ec2-54-156-85-145.compute-1.amazonaws.com; Port=5432;Database=d9b9nmidcafjsr;Username=jqdsyavlscywym;Password=3621ae6dd272343e6222ad37b8738f22281bdccce44ada24315c22fa7aa73977;SSL Mode=Require; Trust Server Certificate=true;"));
-
+            services.AddDbContext<Context>(options => options.UseNpgsql(Environment.GetEnvironmentVariable("CONNECTION_STRING")));
 
             services.AddSwaggerGen(x =>
             {
