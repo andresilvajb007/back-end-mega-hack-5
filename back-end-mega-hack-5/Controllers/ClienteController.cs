@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Amazon.S3;
+using Amazon.S3.Model;
+using Amazon.S3.Transfer;
 using back_end_mega_hack_5.Entidades;
 using back_end_mega_hack_5.Token;
 using Microsoft.AspNetCore.Authorization;
@@ -48,7 +52,7 @@ namespace back_end_mega_hack_5.Controllers
             return new
             {
                 user = user,
-                token = token
+                token = token                
             };
         }
 
@@ -63,7 +67,7 @@ namespace back_end_mega_hack_5.Controllers
                 return NotFound();
             }
             
-            return Ok(lista.Select(x => new { x.Id, x.Nome, x.CPF, x.ContaCorrente.Saldo }));
+            return Ok(lista.Select(x => new { x.Id, x.Nome, x.CPF, x.UrlImagem, x.ContaCorrente.Saldo }));
         }
 
         // GET: api/TipoBoleto/5
@@ -77,13 +81,37 @@ namespace back_end_mega_hack_5.Controllers
                 return NotFound();
             }
 
-            return Ok(new { cliente.Id, cliente.Nome, cliente.CPF, cliente.ContaCorrente.Saldo});
+            return Ok(new { cliente.Id, cliente.Nome, cliente.CPF, cliente.UrlImagem ,cliente.ContaCorrente.Saldo});
         }
 
         // POST: api/TipoBoleto
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Cliente cliente)
-        {            
+        [AllowAnonymous]
+        public async Task<IActionResult> Post([FromForm] string nome, [FromForm] string cpf, [FromForm] string usuario, [FromForm] string senha, IFormFile file)
+        {
+
+            var memoryStream = new MemoryStream();
+            file.CopyTo(memoryStream);
+
+            var request = new PutObjectRequest
+            {
+                BucketName = "mega-hacka",
+                Key = file.FileName,
+                InputStream = memoryStream,
+                ContentType = file.ContentType,
+                CannedACL = S3CannedACL.PublicRead
+            };
+
+            var s3Client = new Amazon.S3.AmazonS3Client(Amazon.RegionEndpoint.USEast1);
+            var response = await s3Client.PutObjectAsync(request);
+
+            var cliente = new Cliente();
+            cliente.Nome = nome;
+            cliente.CPF = cpf;
+            cliente.Usuario = usuario;
+            cliente.Senha = senha;
+            cliente.UrlImagem =  $"https://mega-hacka.s3.amazonaws.com/{request.Key}";
+
             await _context.Cliente.AddAsync(cliente);
             await _context.SaveChangesAsync();
 
@@ -92,8 +120,22 @@ namespace back_end_mega_hack_5.Controllers
 
         // PUT: api/TipoBoleto/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, Cliente cliente)
+        public async Task<IActionResult> Put([FromForm] int id, [FromForm] string nome, [FromForm] string cpf, [FromForm] string usuario, [FromForm] string senha, IFormFile file)
         {
+            var memoryStream = new MemoryStream();
+            file.CopyTo(memoryStream);
+
+            var request = new PutObjectRequest
+            {
+                BucketName = "mega-hacka",
+                Key = file.Name,
+                InputStream = memoryStream,
+                ContentType = file.ContentType,
+                CannedACL = S3CannedACL.PublicRead
+            };
+
+            var s3Client = new Amazon.S3.AmazonS3Client(Amazon.RegionEndpoint.USEast1);
+            var response = await s3Client.PutObjectAsync(request);
 
             var obj = await _context.Cliente.FindAsync(id);
 
@@ -102,10 +144,11 @@ namespace back_end_mega_hack_5.Controllers
                 return NotFound();
             }
 
-            obj.CPF = cliente.CPF;
-            obj.Nome = cliente.Nome;
-            obj.Usuario = cliente.Usuario;
-            obj.Senha = cliente.Senha;
+            obj.CPF = cpf;
+            obj.Nome = nome;
+            obj.Usuario = usuario;
+            obj.Senha = senha;
+            obj.UrlImagem = $"https://mega-hacka.s3.amazonaws.com/{request.Key}";
 
             _context.Entry(obj).State = EntityState.Modified;
             await _context.SaveChangesAsync();

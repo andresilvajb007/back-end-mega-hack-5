@@ -14,7 +14,9 @@ namespace back_end_mega_hack_5.Entidades
         public string Usuario { get; set; }
 
         public string Senha { get; set; }
-                
+
+        public string UrlImagem { get; set; }
+
         public Cliente()
         {
         }
