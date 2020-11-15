@@ -1,10 +1,10 @@
 <h3 align="center">
-  Backend(API's)! 👽
+  Backend(API's) do Conta Mais ! 
 </h3>
 
 ## 🔗 Objetivo
 
-O objetivo do projeto é  proporciar API's para pagamento de Boletos de forma facil e rápida.
+O objetivo do projeto é proporciar API's para pagamento de Boletos, Lembretes e Transfêrencias entre contas tudo isso  de forma facil e rápida.
 
 ## 🚀 Status do projeto
 
@@ -15,11 +15,11 @@ Projeto em andamento...
 - [x] API de Login de Cliente
 - [x] API de Cadastro de Lembrete
 - [x] API de Cadastro de Tipo de Boleto
-- [x] API de Cadastro de Boleto
+- [x] API de Pagamento de Boleto
 
 
 ## 🚧 Backlog futuro 
-- [ ] API de Pagamento de Boleto
+- [ ] Integrações com outros bancos
 
 
 ## :computer: Demonstração da aplicação
@@ -51,4 +51,4 @@ Para acessar a documentação via Swagger:
 
 ## License
 
-MIT © [PLIM](https://github.com/Plim)
+MIT © [Conta Mais](https://github.com/ContaMais)
