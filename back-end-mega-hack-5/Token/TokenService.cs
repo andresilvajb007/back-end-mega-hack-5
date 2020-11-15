@@ -11,7 +11,7 @@ namespace back_end_mega_hack_5.Token
         public static string GenerateToken(String username, string role)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(Settings.Secret);
+            var key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("TOKEN_SECRET"));
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {

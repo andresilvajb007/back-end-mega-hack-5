@@ -79,7 +79,7 @@ namespace back_end_mega_hack_5
                 });
             });
 
-            var key = Encoding.ASCII.GetBytes(Settings.Secret);
+            var key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("TOKEN_SECRET"));
 
             services.AddAuthentication(x =>
             {
