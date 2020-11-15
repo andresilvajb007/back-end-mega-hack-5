@@ -71,7 +71,7 @@ namespace back_end_mega_hack_5.Controllers
         
 
         // POST: api/TipoBoleto
-        [HttpPost]
+        [HttpPost("Pagamento")]
         public async Task<IActionResult> Post([FromBody] Boleto boleto)
         {            
             await _context.Boleto.AddAsync(boleto);
