@@ -120,7 +120,7 @@ namespace back_end_mega_hack_5.Controllers
 
         // PUT: api/TipoBoleto/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put([FromForm] int id, [FromForm] string nome, [FromForm] string cpf, [FromForm] string usuario, [FromForm] string senha, IFormFile file)
+        public async Task<IActionResult> Put(int id, [FromForm] string nome, [FromForm] string cpf, [FromForm] string usuario, [FromForm] string senha, IFormFile file)
         {
             var memoryStream = new MemoryStream();
             file.CopyTo(memoryStream);
