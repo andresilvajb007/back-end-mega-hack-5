@@ -12,6 +12,7 @@ Projeto em andamento...
 
 ## :pushpin: Features desenvolvidas
 - [x] API de Cadastro de Cliente
+- [x] API de Login de Cliente
 - [x] API de Cadastro de Lembrete
 - [x] API de Cadastro de Tipo de Boleto
 - [x] API de Cadastro de Boleto
@@ -33,6 +34,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - [Entity FrameWork Core](https://docs.microsoft.com/pt-br/ef/core/get-started/?tabs=netcore-cli)
 - [Swagger](https://docs.microsoft.com/pt-br/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1&tabs=visual-studio)
 - [PostGreSQL](https://www.postgresql.org)
+- [Token JWT](https://docs.microsoft.com/pt-br/aspnet/core/security/authorization/introduction?view=aspnetcore-3.1)
 
 ## :point_down: Executando o projeto
 
