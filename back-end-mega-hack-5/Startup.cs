@@ -44,7 +44,9 @@ namespace back_end_mega_hack_5
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<Context>(options => options.UseNpgsql(Environment.GetEnvironmentVariable("CONNECTION_STRING")));
+            var conn = $"Host={Environment.GetEnvironmentVariable("HOST_DB")}; Port={Environment.GetEnvironmentVariable("PORT")};Database={Environment.GetEnvironmentVariable("DATABASE")};Username={Environment.GetEnvironmentVariable("USERNAME")};Password={Environment.GetEnvironmentVariable("PASSWORD")};SSL Mode=Require; Trust Server Certificate=true;";
+            services.AddDbContext<Context>(options => options.UseNpgsql(conn));
+
 
             services.AddSwaggerGen(x =>
             {
