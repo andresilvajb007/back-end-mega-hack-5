@@ -8,7 +8,7 @@ O objetivo do projeto é proporciar API's para pagamento de Boletos, Lembretes e
 
 ## 🚀 Status do projeto
 
-Projeto em andamento...
+Projeto Finalizado e entregue em 15/11/2020.
 
 ## :pushpin: Features desenvolvidas
 - [x] API de Cadastro de Cliente
