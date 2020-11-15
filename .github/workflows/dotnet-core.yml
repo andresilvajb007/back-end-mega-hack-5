@@ -18,12 +18,21 @@ jobs:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        CONNECTION_STRING: ${{ secrets.CONNECTION_STRING }}    
+        HOST_DB: ${{ secrets.HOST_DB }}
+        PORT_DB: ${{ secrets.PORT_DB }}
+        DATABASE: ${{ secrets.DATABASE }}
+        USERNAME_DB: ${{ secrets.USERNAME_DB }}
+        PASSWORD_DB: ${{ secrets.PASSWORD_DB }}
+        
         APP_NAME: ${{ 'mega-hacka-5' }}
       run: |              
         docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
         heroku config:set AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -a $APP_NAME
         heroku config:set AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -a $APP_NAME
-        heroku config:set CONNECTION_STRING=$CONNECTION_STRING -a $APP_NAME
+        heroku config:set HOST_DB=$HOST_DB -a $APP_NAME
+        heroku config:set PORT_DB=$PORT_DB -a $APP_NAME
+        heroku config:set DATABASE=$DATABASE -a $APP_NAME
+        heroku config:set USERNAME_DB=$USERNAME_DB -a $APP_NAME
+        heroku config:set PASSWORD_DB=$PASSWORD_DB -a $APP_NAME
         heroku container:push web -a $APP_NAME
         heroku container:release web -a $APP_NAME
