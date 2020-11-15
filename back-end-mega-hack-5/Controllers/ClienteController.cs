@@ -25,9 +25,9 @@ namespace back_end_mega_hack_5.Controllers
         }
 
 
-        [HttpPost("Login")]
+        [HttpGet("Login")]
         [AllowAnonymous]
-        public async Task<ActionResult<dynamic>> Login([FromBody] string usuario, string senha)
+        public async Task<ActionResult<dynamic>> Login([FromQuery] string usuario,[FromQuery] string senha)
         {
             // Recupera o usuário
             var user = await _context.Cliente

@@ -129,6 +129,7 @@ namespace back_end_mega_hack_5
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
